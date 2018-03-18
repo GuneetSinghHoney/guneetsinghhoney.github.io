@@ -12,14 +12,17 @@
   let assetManifest: any[];
   let currentScene: objects.Scene;
   let currentState: number;
+  let keyboardManager: managers.Keyboard;
 
   assetManifest = [
     {id: "heroFront", src:"./Assets/images/heroFront.png"},
     {id: "hero", src:"./Assets/images/hero.png"},
     {id: "zom", src:"./Assets/images/zombie.png"},
+    {id: "zom2", src:"./Assets/images/ground.png"},
     {id: "bullet", src:"./Assets/images/bullet.png"},
     {id: "bg", src:"./Assets/images/bg.jpg"},
     {id: "lvl1", src:"./Assets/images/lvl1.jpg"},
+    {id: "lvl2", src:"./Assets/images/lvl2.jpg"},
     {id: "startbt", src:"./Assets/images/startButton.jpg"},
     {id: "clickMeButton", src:"./Assets/images/clickMeButton.png"},
     {id: "startButton", src:"./Assets/images/startButton.jpg"},
@@ -59,6 +62,9 @@
     objects.Game.stage = stage;
     objects.Game.currentScene = config.Scene.START;
     currentState = config.Scene.START;
+
+    keyboardManager = new managers.Keyboard();
+    objects.Game.keyboardmanager = keyboardManager;
     Main();
   }
 
@@ -83,6 +89,9 @@
       break;
       case config.Scene.PLAY:
         currentScene = new scenes.level1(assetManager);
+      break;
+      case config.Scene.LEVEL2:
+        currentScene = new scenes.level2(assetManager);
       break;
       case config.Scene.OVER:
         currentScene = new scenes.OverScene(assetManager);
