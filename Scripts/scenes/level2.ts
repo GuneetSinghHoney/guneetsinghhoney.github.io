@@ -6,8 +6,8 @@ module scenes {
         private _zombiearray:objects.zombie[]; 
         private _zombiearray2:objects.zombie2[]; 
         private _bullet:objects.bullet;
-        private _bullet1:objects.bullet;
-      
+    //    private _bullet1:objects.bullet;
+    private sound:createjs.Sound;
         private _zombieCounter:number;
         private _count:number;
         // Public Properties
@@ -16,9 +16,10 @@ module scenes {
       constructor(assetManager: createjs.LoadQueue) {
         super(assetManager);
         this._count = 5;
+        this.sound = createjs.Sound.play("zomhorde");
         this._zombieCounter =0;
         this.assetManager = assetManager;
-        this._hero = new objects.hero(this.assetManager);
+        this._hero = new objects.hero(this.assetManager,objects.Game.keyboardmanager);
         this._bg = new createjs.Bitmap(this.assetManager.getResult("lvl2"));
         this.addEventListener("click",this._fireBullets);
         this._zombiearray = new Array(this._count);
@@ -35,8 +36,8 @@ module scenes {
 
         this._bullet = new objects.bullet(this.assetManager,this._hero);
         this._bullet.distance=0;
-        this._bullet1 = new objects.bullet(this.assetManager,this._hero);
-        this._bullet1.distance = 20;
+   //     this._bullet1 = new objects.bullet(this.assetManager,this._hero);
+   //     this._bullet1.distance = 20;
       
         
         this.Start();
@@ -72,12 +73,14 @@ module scenes {
         console.log(this._zombieCounter);
         if(this._zombieCounter==(this._zombiearray.length+3))
         {
-          objects.Game.currentScene = config.Scene.OVER;
+          objects.Game.scene = config.Scene.LEVEL2;
+          this.sound.stop();
+          objects.Game.currentScene = config.Scene.CONGO;
         }
        this._hero.Update();
       
        this._bullet.Update();
-       this._bullet1.Update();
+  //     this._bullet1.Update();
        
        
        let num = Math.floor((Math.random() * this._count));
@@ -92,9 +95,9 @@ module scenes {
   
 
           let check = managers.Collision.Check(element,this._bullet);
-          let check2 = managers.Collision.Check(element,this._bullet1);
+   //       let check2 = managers.Collision.Check(element,this._bullet1);
           let check3 = managers.Collision.Check(element.bullet,this._hero);
-          if(check || check2)
+          if(check)// || check2)
           {
             //collision bullet hits zombie
             createjs.Sound.play("zombieDead");
@@ -105,8 +108,8 @@ module scenes {
             createjs.Sound.play("cheek");
            if(check)
             this._bullet.Reset();
-           if(check2)
-            this._bullet1.Reset();
+    //       if(check2)
+    //        this._bullet1.Reset();
           }
 
           if(check3)
@@ -114,8 +117,9 @@ module scenes {
             createjs.Sound.play("heroDead");
             this.removeChild(this._hero);
             console.log("hero removed");
+            this.sound.stop();
             this.removeChild(this._bullet);
-            this.removeChild(this._bullet1);
+     //       this.removeChild(this._bullet1);
             objects.Game.currentScene = config.Scene.OVER;
           }
 
@@ -133,9 +137,9 @@ module scenes {
   
 
           let check = managers.Collision.Check(element,this._bullet);
-          let check2 = managers.Collision.Check(element,this._bullet1)
+      //    let check2 = managers.Collision.Check(element,this._bullet1)
           let check3 = managers.Collision.Check(element,this._hero);
-          if(check || check2)
+          if(check)//  || check2)
           {
             //collision bullet hits zombie
             createjs.Sound.play("zombieDead");
@@ -145,8 +149,8 @@ module scenes {
             createjs.Sound.play("cheek");
            if(check)
             this._bullet.Reset();
-           if(check2)
-            this._bullet1.Reset();
+    //       if(check2)
+   //         this._bullet1.Reset();
           }
 
           if(check3)
@@ -155,14 +159,11 @@ module scenes {
             this.removeChild(this._hero);
             console.log("hero removed");
             this.removeChild(this._bullet);
-            this.removeChild(this._bullet1);
+    //        this.removeChild(this._bullet1);
             objects.Game.currentScene = config.Scene.OVER;
           }
         }
         });
-
-
-      
       }
   
       // This is where the fun happens
@@ -171,7 +172,7 @@ module scenes {
         
         this.addChild(this._bg);
         this.addChild(this._bullet); 
-        this.addChild(this._bullet1);
+    ///    this.addChild(this._bullet1);
        
         this._zombiearray.forEach(element => {
           this.addChild(element);

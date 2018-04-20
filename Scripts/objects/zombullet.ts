@@ -8,7 +8,7 @@ module objects {
       public fire:number=0;
       // Constructor
       constructor(assetManager: createjs.LoadQueue, zomarr:any) {
-        super(assetManager, "bullet");
+        super("zombie_bullet");
        this._hero = zomarr;
         this.Start();
       }
@@ -19,13 +19,13 @@ module objects {
   
       // Initializes variables and creates new objects
       public Start():void {
-        this._dy = 9;
+        this._dy = 10;
         this.Reset();
       }
   
       // updates the game object every frame
       public Update():void {
-        
+        console.log("fireeedddd@!!!!!")
         this.Move();
         this.CheckBounds();
       }
@@ -34,7 +34,7 @@ module objects {
       public Reset():void {
         //createjs.Sound.play("fire");
         this.x = this._hero.x;
-        this.y = this._hero.y-this.distance;
+        this.y = this._hero.y;
       }
   
       // move the object to some new location

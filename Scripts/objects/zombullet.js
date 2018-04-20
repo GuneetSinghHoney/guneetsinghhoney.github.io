@@ -14,7 +14,7 @@ var objects;
         __extends(zombullet, _super);
         // Constructor
         function zombullet(assetManager, zomarr) {
-            var _this = _super.call(this, assetManager, "bullet") || this;
+            var _this = _super.call(this, "zombie_bullet") || this;
             // public properties
             _this.distance = 0;
             _this.fire = 0;
@@ -26,11 +26,12 @@ var objects;
         // public methods
         // Initializes variables and creates new objects
         zombullet.prototype.Start = function () {
-            this._dy = 9;
+            this._dy = 10;
             this.Reset();
         };
         // updates the game object every frame
         zombullet.prototype.Update = function () {
+            console.log("fireeedddd@!!!!!");
             this.Move();
             this.CheckBounds();
         };
@@ -38,7 +39,7 @@ var objects;
         zombullet.prototype.Reset = function () {
             //createjs.Sound.play("fire");
             this.x = this._hero.x;
-            this.y = this._hero.y - this.distance;
+            this.y = this._hero.y;
         };
         // move the object to some new location
         zombullet.prototype.Move = function () {

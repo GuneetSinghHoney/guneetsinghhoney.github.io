@@ -6,7 +6,7 @@ module objects {
       public distance:number = 0 ;
       // Constructor
       constructor(assetManager: createjs.LoadQueue, warrior:objects.hero) {
-        super(assetManager, "bullet");
+        super("bullet");
         this._hero = warrior;
      
         this.Start();
@@ -30,6 +30,7 @@ module objects {
   
       // reset the objects location to some value
       public Reset():void {
+        scenes.last._isColliding = false;
         createjs.Sound.play("fire");
         this.x = this._hero.x;
         this.y = this._hero.y-this.distance;

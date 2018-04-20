@@ -3,6 +3,9 @@ module config {
     START,
     PLAY,
     LEVEL2,
-    OVER
+    last,
+    OVER,
+    CONGO,
+    WIN
   }
 }
