@@ -122,7 +122,7 @@
                 currentScene = new scenes.StartScene(assetManager);
                 break;
             case config.Scene.PLAY:
-                currentScene = new scenes.last(assetManager);
+                currentScene = new scenes.level1(assetManager);
                 break;
             case config.Scene.LEVEL2:
                 currentScene = new scenes.level2(assetManager);
