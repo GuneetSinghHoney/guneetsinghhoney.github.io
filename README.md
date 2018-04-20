@@ -1,1 +1,0 @@
-# mypage.github.io
